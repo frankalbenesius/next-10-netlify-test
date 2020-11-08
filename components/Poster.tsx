@@ -38,7 +38,7 @@ export default function Poster(props: IProps) {
           position: relative;
           background: black;
           width: 100%;
-          box-shadow: 10px 1vw 5px purple;
+          box-shadow: 10px 1vw 5px #ff94ff;
         }
         .poster-wrapper::after {
           content: " ";
@@ -63,6 +63,7 @@ export default function Poster(props: IProps) {
           width: 100%;
           top: calc(-100px + 6vw);
           text-align: center;
+          opacity: 0.5;
         }
         .poster-header span {
           display: block;
