@@ -1,30 +1,37 @@
-import { GetServerSideProps } from "next";
-import Head from "next/head";
-import { useEffect, useState } from "react";
+import { formatDistanceStrict } from "date-fns";
+import React from "react";
 
-export default function Home() {
-  const [data, setData] = useState(null);
+import Poster from "../components/Poster";
+import useSquares from "../hooks/useSquares";
 
-  useEffect(() => {
-    async function testPost() {
-      const res = await fetch(`http://localhost:3000/api/hello`, {
-        method: "POST",
-      });
-      const data = await res.json();
-      setData(data);
-    }
-    testPost();
-  }, []);
+export default function IndexPage() {
+  const squares = useSquares();
+  const squaresClaimed: number = squares.filter((sq) => sq.content !== null)
+    .length;
 
+  const timeLeftStr = formatDistanceStrict(new Date(2021, 0, 1), new Date());
   return (
     <div>
-      <Head>
-        <title>next 10 netlify test</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <main>
+        <div>frank's 2020 poster</div>
 
-      <p>aww yiss much better</p>
-      <p>data: {JSON.stringify(data)}</p>
+        <hr />
+
+        <div>time left: {timeLeftStr}</div>
+        <div>
+          squares claimed: {squaresClaimed}/{squares.length}
+        </div>
+        <div>invitations created: 23</div>
+
+        <hr />
+
+        <Poster squares={squares} />
+      </main>
+      <style jsx>{`
+        main {
+          max-width: 34rem;
+        }
+      `}</style>
     </div>
   );
 }
